@@ -1,0 +1,134 @@
+import java.util.ArrayList;
+public class IParams {
+	public  int getBig() {
+		return 0;
+	}
+	public int getMedium() {
+		return 0;
+	}
+	public int getSmall() {
+		return 0;
+	}
+	public ArrayList<Integer> getPlanSignUp() {
+		return null;
+	}
+
+}
+import java.util.ArrayList;
+import java.util.Scanner;
+public interface ISignUp {
+	public void print();
+	public boolean addStudent(int stuType);
+	public static IParams parse() throws Exception{
+		Scanner scan = new Scanner(System.in);
+		String[] a = SchoolSystem.parse(scan.next());
+		  IParams iparams = new IParams() {
+			  int Big;
+			  int Medium;
+			  int Small;
+			@Override
+			public int getBig() {
+				IParams();
+				return Big;
+			}
+			@Override
+			public int getMedium() {
+				IParams();
+				return Medium;
+			}
+			@Override
+			public int getSmall() {
+				IParams();
+				return Small;
+			}
+			@Override
+			public ArrayList<Integer> getPlanSignUp() {
+				ArrayList<Integer> planSignUp = new ArrayList<Integer>();
+                for (int i = 4;i<a.length;i++) {
+                    planSignUp.add(Integer.valueOf(a[i]));
+                }
+				return planSignUp;
+			}
+			 void IParams() {
+                 for (int i = 1; i < 4; i++) {
+                     if (i == 1) {
+                         Big = (Integer.valueOf(a[i]));
+                     } else if (i == 2) {
+                         Medium = (Integer.valueOf(a[i]));
+                     } else {
+                         Small = (Integer.valueOf(a[i]));
+                     }
+                 }
+             }
+     };return iparams;
+		  
+	}
+
+}
+import java.util.ArrayList;
+import java.util.Scanner;
+public class SchoolSystem implements ISignUp{
+	int big;
+    int medium;
+    int small;
+    static Boolean[] b;
+    public SchoolSystem(int big, int medium, int small) {
+       this. big = big;
+        this.small = small;
+        this.medium = medium;
+    }
+    public static void main(String[] args) throws Exception {
+        Scanner scanner = new Scanner(System.in);
+        String[] c=(scanner.next()).trim().split("[\\s\\p{Punct}]+");
+        b=new Boolean[c.length+3];
+        IParams params = ISignUp.parse();//SchoolSystem.parse();
+        SchoolSystem sc = new SchoolSystem (params.getBig(), params.getMedium(),params.getSmall());
+        ArrayList<Integer> plan = params. getPlanSignUp ();
+       for (int i = 0; i < plan.size(); i++) {
+            b[i+1]=sc. addStudent (plan.get(i));
+        }
+        sc.print();
+    }
+
+    @Override
+    public void print() {
+        System.out.print("[");
+        for(int i = 0; i<b.length;i++){
+            if(i==b.length-1){
+                System.out.print(b[i] );
+            }else {
+                System.out.print(b[i] + ",");
+            }
+        }
+        System.out.print("]");
+    }
+
+    @Override
+    public boolean addStudent(int stuType) {
+        if (stuType==1){
+            if((this.big=big-1)>=0){
+                return true;
+            }else {
+                return false;
+            }
+        }else if (stuType==2){
+            if((this.medium=medium-1)>=0){
+                return true;
+            }else {
+                return false;
+            }
+        }else{
+            if((this.small=small-1)>=0){
+                return true;
+            }else {
+                return false;
+            }
+        }
+    }
+    static String[] parse(String input){
+        String input1 =input.trim();
+       String[] a = input1.split("[\\s\\p{Punct}]+");
+        return a;
+    }
+}
+
